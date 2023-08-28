@@ -35,11 +35,19 @@ app.MapGet("/beta_validate.php", (HttpRequest request) =>
 
     if (name != null)
     {
-        var realPass = nameToPassDictionary[name];
-        if (realPass.Equals(password, StringComparison.OrdinalIgnoreCase))
+        try
         {
-            return "SUCCEEDED";
+            var realPass = nameToPassDictionary[name];
+            if (realPass.Equals(password, StringComparison.OrdinalIgnoreCase))
+            {
+                return "SUCCEEDED";
+            }
         }
+        catch (Exception e)
+        {
+            return "FAILED";
+        }
+     
     }
     return "FAILED";
 });
